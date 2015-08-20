@@ -5,4 +5,5 @@
 //= require angular-ui-select
 //= require angular-ui-sortable
 //= require angular-ui-router
+//= require angular-ui-validate
 //= require_tree .

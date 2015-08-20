@@ -9,7 +9,27 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
+ *= require bootstrap-sass/assets/stylesheets/bootstrap
+ *= require angular-ui-select/dist/select
  *= require_tree .
  *= require_self
  */
+
+
+td, textarea{
+	vertical-align: middle !important;
+}
+
+.invalid{
+	background: red;
+	color: #fff;
+	border-radius: 5px;
+	margin: 10px 0;
+	line-height: 3em;
+	padding: 0 10px;
+}
+
+
+input.ng-invalid-pattern, textarea.ng-invalid-pattern{
+	border: 2px solid red;
+}

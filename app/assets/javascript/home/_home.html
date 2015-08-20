@@ -1,0 +1,158 @@
+
+<div class="row">
+  <div class="col-md-12">
+
+    <h1>Your Dashborad</h1>
+
+    <div class="questionnaries">		
+    	 <h2>Your Questionaires</h2>
+
+    		<div class="add-questionnaire">
+    			<h3>Add New Qustionnaire</h3>
+    			<form name="formQuestionnarie" ng-submit="addQuestionnaire()">
+    			   
+    				<label for="name">Name of questionnarie</label>
+    				<input name="name" ng-pattern="/^\w{3}/"  type="text" ng-model="name" id="name"/>
+
+
+    				<button class="btn btn-primary" type="submit">Add questionnarie</button>
+
+            <div class="invalid">
+             <span ng-show="formQuestionnarie.name.$error.pattern">
+              Field need to have min. 3 letters at the beginning
+            </span>
+            </div>
+           
+    			</form>
+    		</div>
+
+    		<div class="questionnaire-list" ng-hide="!questionnaires.length">
+    			<h3>List of Yours Questionnaires</h3>
+
+
+          <table class="table table-bordered">
+            <thead>
+              <th>Nr</th>
+              <th> Name of Questionnaire</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+        			<tr ng-repeat="(index,questionnaire) in questionnaires">    
+        			    <td>
+        			    	{{index + 1}} 
+                  </td>
+                  <td>
+                  <div ng-hide="editQuestionnaire[index]">
+                     <a href="#/questionnaire/{{$index}}">
+                        {{questionnaire.name}}
+                        
+                      </a>
+
+                      <button class="btn" ng-click="activeEditQuestionnaire(index)">Edit</button>
+                    </div>
+              
+
+                    <div ng-show="editQuestionnaire[index]">
+                      <form name="formQuestionnarie[index]" ng-submit="endActiveEditQuestionnaire(index)">
+                        <input  name="name" type="text" ng-pattern="/^\w{3}/" style="width: 85%;" ng-model="questionnaire.name"</>
+                        <button class="btn btn-primary" type="submit">End Edit</button>
+                      </form>
+
+                       <div class="invalid">
+                       <span ng-show="formQuestionnarie[index].name.$error.pattern">
+                        Field need to have min. 3 letters at the beginning
+                      </span>
+                      </div>
+                    </div>
+
+        			    </td>
+
+
+
+
+
+                  
+                  <td><button class="btn" ng-click="deleteQuestionnaire(index)">Delete</button></td>
+                  </td>
+        			 
+        			</tr>
+            </tbody>
+          </table>
+    		</div>
+    </div>
+
+    <div class="questions">		
+    	 <h2>Your Questions</h2>
+
+    		<div class="add-questions">
+    			<h3>Add New Qustions</h3>
+    			<form name="formQuestion" ng-submit="addQuestion()">
+    			   
+    				<label for="title">Insert question</label>
+    				<textarea name="title" ng-pattern="/^\w{3}/" rows="1" ng-model="title" id="title" style="width: 70%;"/>
+    				<button class="btn btn-primary" type="submit">Add question</button>
+
+             <div class="invalid">
+                <span ng-show="formQuestion.title.$error.pattern">
+                        Field need to have min. 3 letters at the beginning
+                </span>
+              </div>
+    			</form>
+    		</div>
+
+    		<div class="questions-list" ng-hide="!questions.length">
+    			<h3>List of Yours Questions</h3>
+    			
+          <table class="table table-bordered">
+            <thead>
+              
+                <th></th>
+                <th>Question</th>
+                <th>Action</th>
+            
+            </thead>
+            <tbody>
+              <tr ng-repeat="(index,question) in questions">
+                <td>{{index + 1}}</td>
+                <td> 
+
+                  <div ng-hide="edit[index]">
+                  <a href="#/question/{{$index}}">
+                    {{question.title}}
+                    {{question.url}}
+                    </a>
+
+                    <button class="btn" ng-click="activeEditQuestion(index)">Edit</button>
+                  </div>
+
+
+                  
+
+                  <div ng-show="edit[index]">
+                    <form name="formQuestion[index]" ng-submit="endActiveEditQuestion(index)">
+                    <textarea name="title" ng-pattern="/^\w{3}/" type="text" ng-pattern="/^\w+/" rows="1" style="width: 85%;" ng-model="question.title"</>
+                    <button type="submit" class="btn btn-primary">End Edit</button>
+                    <div class="invalid">
+                      <span ng-show="formQuestion[index].title.$error.pattern">
+                              Field need to have min. 3 letters at the beginning
+                      </span>
+                    </div>
+                    </form>
+                  </div>
+
+
+
+
+
+                </td>
+
+                <td><button class="btn" ng-click="deleteQuestion(index)">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+    		</div>
+    </div>
+ </div>
+ </div>
+
+

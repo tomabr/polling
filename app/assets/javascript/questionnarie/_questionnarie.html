@@ -1,0 +1,54 @@
+
+  <div>
+  		<h1>Questionnarie: {{questionnaire.name}}</h1>
+  		<h2>Menage questions to your questionnarie</h2>
+
+
+
+      <h3>Add/delete question</h3>
+
+      <form ng-submit="addQuestionsToQuestionnaire()">
+        <ui-select multiple ng-model="multiple.selectedQuestions" theme="bootstrap" ng-disabled="disabled" sortable="true" close-on-select="false">
+          <ui-select-match placeholder="Select questions">{{$item.title}}</ui-select-match>
+          <ui-select-choices repeat="question in questions | propsFilter: {title: $select.search, url: $select.search}">
+            <div ng-bind-html="question.title | highlight: $select.search"></div>
+
+            <small>
+              title: {{question.title}}
+              url: <span ng-bind-html="''+question.url | highlight: $select.search"></span>
+            </small>
+
+          </ui-select-choices>
+        </ui-select>
+
+
+
+       
+        <div class="panel panel-default" ng-hide="!list.length">
+          <div class="panel-heading"><h3>Change questions order in questionnaire</h3></div>
+          <div class="panel-body">
+            <span>Drag and drop items in list</span>
+
+            <ul class="list-group" ui-sortable="sortableOptions" ng-model="list" class="list">
+            <li class="list-group-item item" ng-repeat="(index,item) in list">Question nr {{index+1}} is: <b>{{item.title}}</b></li>
+           </ul>
+
+          </div>
+        </div>
+
+        <div class="floatleft" style="margin-left: 20px;">
+          <ul class="list logList">
+            <li ng-repeat="entry in sortingLog track by $index" class="logItem">
+              {{entry}}
+            </li>
+          </ul>
+        </div>
+
+        <button class="btn" type="submit">Save</button>
+      </form>
+
+		
+
+
+  </div>
+ 

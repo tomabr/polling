@@ -1,0 +1,58 @@
+
+
+  <h1>{{question.title}}</h1>
+  <h2>Add responses for your question</h2>
+  <button class="btn btn-primary" ng-click="addNewInput()">New response</button>
+
+
+
+  <table class="table table-bordered" ng-show="!!inputs.length">
+        <thead>
+          <tr>
+            <th>Nr</th>
+            <th colspan="2">Response</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(index,input) in inputs">
+
+            
+              <td> {{index+1}} </td>
+              <td colspan="2"> 
+
+
+                <div ng-hide="editResponseState[index]">
+
+
+
+                  <form name="formResponse[index]" ng-submit="addResponse(index)">
+                    <textarea  name="response" ng-pattern="/^\w{3}/" rows="1" ng-model="input.name" style="width:80%;" placeholder="Insert your answer"></textarea> 
+                     <button class="btn btn-primary" type="submit">Save</button>
+                  </form>
+
+                  <div class="invalid">
+                    <span ng-show="formResponse[index].response.$error.pattern">
+                            Field need to have min. 3 letters at the beginning
+                    </span>
+                  </div>
+                </div>
+
+
+                <div ng-show="editResponseState[index]">
+                  {{input.name}}
+                    <button class="btn" ng-click="activeEditResponse(index)">Edit</button>
+                </div>
+
+
+              </td>
+              <td> 
+                  <button class="btn" ng-click="deleteResponse(index)">Delete</button>
+
+              </td>
+              
+          </tr>
+        </tbody>
+    </table>
+
+

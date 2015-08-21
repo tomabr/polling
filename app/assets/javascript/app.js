@@ -81,7 +81,12 @@ myapp.config(['$stateProvider','$urlRouterProvider',
     .state('questionnaire', {
       url: '/questionnaire/{id}',
       templateUrl: 'questionnaire/_questionnaire.html',
-      controller: 'QustionnaireCtrl'
+      controller: 'QustionnaireCtrl',
+      resolve: {
+          questionnaire: ['$stateParams', 'questionnaires', function($stateParams, questionnaires) {
+            return questionnaires.get($stateParams.id);
+          }]
+        }
     });
 
 

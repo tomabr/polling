@@ -1,8 +1,11 @@
-myapp.controller('QustionnaireCtrl', ['scope',  '$stateParams', 'questionnaires', 'questions', 'qustionnaries_questions' ,
-  function($scope, $stateParams, questionnaires, questions, qustionnaries_questions){
+myapp.controller('QustionnaireCtrl', ['$scope', 'questionnaire', 'questionnaires', 'questions', 'qustionnaries_questions' ,
+  function($scope, questionnaire, questionnaires, questions, qustionnaries_questions){
 
-	$scope.questionnaire = questionnaires.questionnaires[$stateParams.id];
-	$scope.questions = questions.questions;
+  $scope.questionnaire = questionnaire;
+
+  questions.getAll();
+  $scope.questions = questions.questions;
+
   $scope.qustionnaries_questions = qustionnaries_questions;
 
  
@@ -19,7 +22,7 @@ myapp.controller('QustionnaireCtrl', ['scope',  '$stateParams', 'questionnaires'
   $scope.sortableOptions = {
     update: function(e, ui) {
       var logEntry = $scope.multiple.selectedQuestions.map(function(i){
-      	
+        console.log(i)
         return i.title;
       }).join(', ');
       $scope.sortingLog.push('Update: ' + logEntry);

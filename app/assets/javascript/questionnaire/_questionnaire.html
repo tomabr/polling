@@ -10,12 +10,11 @@
       <form ng-submit="addQuestionsToQuestionnaire()">
         <ui-select multiple ng-model="multiple.selectedQuestions" theme="bootstrap" ng-disabled="disabled" sortable="true" close-on-select="false">
           <ui-select-match placeholder="Select questions">{{$item.title}}</ui-select-match>
-          <ui-select-choices repeat="question in questions | propsFilter: {title: $select.search, url: $select.search}">
+          <ui-select-choices repeat="question in questions | propsFilter: {title: $select.search}">
             <div ng-bind-html="question.title | highlight: $select.search"></div>
 
             <small>
               title: {{question.title}}
-              url: <span ng-bind-html="''+question.url | highlight: $select.search"></span>
             </small>
 
           </ui-select-choices>

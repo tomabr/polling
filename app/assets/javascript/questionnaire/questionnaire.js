@@ -32,7 +32,11 @@ myapp.factory('questionnaires', ['$http', function($http){
 	  });
 	};
 
-
+	o.get = function(id) {
+	  return $http.get('/questionnaires/' + id + '.json').then(function(res){
+	    return res.data;
+	  });
+	};
 
 
      

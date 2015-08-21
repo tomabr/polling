@@ -119,9 +119,9 @@
                 <td> 
 
                   <div ng-hide="edit[index]">
-                  <a href="#/question/{{$index}}">
+                  <a href="#question/{{question.id}}">
+                 
                     {{question.title}}
-                    {{question.url}}
                     </a>
 
                     <button class="btn" ng-click="activeEditQuestion(index)">Edit</button>
@@ -133,6 +133,10 @@
                   <div ng-show="edit[index]">
                     <form name="formQuestion[index]" ng-submit="endActiveEditQuestion(index)">
                     <textarea name="title" ng-pattern="/^\w{3}/" type="text" ng-pattern="/^\w+/" rows="1" style="width: 85%;" ng-model="question.title"</>
+                    <input type="hidden" name="id" ng-model="question.id"/>
+
+
+                      
                     <button type="submit" class="btn btn-primary">End Edit</button>
                     <div class="invalid">
                       <span ng-show="formQuestion[index].title.$error.pattern">
@@ -148,7 +152,7 @@
 
                 </td>
 
-                <td><button class="btn" ng-click="deleteQuestion(index)">Delete</button></td>
+                <td><button class="btn" ng-click="deleteQuestion(question)">Delete</button></td>
               </tr>
             </tbody>
           </table>

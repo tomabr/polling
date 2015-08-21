@@ -26,28 +26,51 @@
 
 
 
-                  <form name="formResponse[index]" ng-submit="addResponse(index)">
+                  <form name="formResponse[index]" ng-submit="addResponse(index, input.name)">
                     <textarea  name="response" ng-pattern="/^\w{3}/" rows="1" ng-model="input.name" style="width:80%;" placeholder="Insert your answer"></textarea> 
                      <button class="btn btn-primary" type="submit">Save</button>
-                  </form>
+                  
 
-                  <div class="invalid">
-                    <span ng-show="formResponse[index].response.$error.pattern">
-                            Field need to have min. 3 letters at the beginning
-                    </span>
-                  </div>
+                    <div class="invalid">
+                      <span ng-show="formResponse[index].response.$error.pattern">
+                              Field need to have min. 3 letters at the beginning
+                      </span>
+                    </div>
+                  </form>
                 </div>
 
 
                 <div ng-show="editResponseState[index]">
-                  {{input.name}}
-                    <button class="btn" ng-click="activeEditResponse(index)">Edit</button>
+
+                  <div ng-show="editResponseStateAfterAdd[index]">
+                    {{input.name}} 
+                    <button class="btn" ng-click="activeEditResponseAfterAdd(index)">Edit</button>
+                  </div>
+
+                  <div ng-hide="editResponseStateAfterAdd[index]"> 
+                      <form name="formResponseEdit[index]" ng-submit="editResponse(index, input.id,  input.name)">
+                        <textarea  name="response" ng-pattern="/^\w{3}/" rows="1" ng-model="input.name" style="width:80%;" placeholder="Insert your answer"></textarea> 
+                         <button class="btn btn-primary" type="submit">Update</button>
+                      
+
+                        <div class="invalid">
+                          <span ng-show="formResponseEdit[index].response.$error.pattern">
+                                  Field need to have min. 3 letters at the beginning
+                          </span>
+                        </div>
+                      </form>
+                  </div>
+
+
+
+
+                  
                 </div>
 
 
               </td>
               <td> 
-                  <button class="btn" ng-click="deleteResponse(index)">Delete</button>
+                  <button class="btn" ng-click="deleteResponse(index, input.id)">Delete</button>
 
               </td>
               

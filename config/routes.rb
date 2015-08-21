@@ -5,6 +5,18 @@ Rails.application.routes.draw do
   resources :questionnaires, only: [:create, :index, :show, :update, :destroy] do
 
   end
+
+  resources :questions, only: [:create, :index, :show, :update, :destroy] do
+    resources :responses, only: [:create, :index, :show, :update, :destroy] do
+
+    end
+
+  end
+
+
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

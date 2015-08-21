@@ -1,36 +1,74 @@
-myapp.factory('questions', [function(){
+myapp.factory('questions', ['$http', function($http){
+	/*var o = {
+		questions:  [
+	  	{title: "Kiedy jedziesz na wakacje za granicą, to wybierasz:", url: '', response: [{'name' : 'testowa odpowiedz'}]},
+	  	{title: "Testowy 2 Kiedy jedziesz na wakacje za granicą, to wybierasz", url: '', response: []},
+	  	{title: "Testowy 3 Kiedy jedziesz na wakacje za granicą, to wybierasz", url: '', response: []},
+	  	{title: "Testowy 4 Kiedy jedziesz na wakacje za granicą, to wybierasz", url: '', response: []},
+	  ]
+	}*/
+
 	var o = {
-		questions:  []
+		questions: []
 	}
 
 	o.getAll = function() {
 	    return $http.get('/questions.json').success(function(data){
+	    	
 	      angular.copy(data, o.questions);
 	    });
-  	};
+  	}
 
-  	o.create = function(questionnaire) {
+  	o.create = function(question) {
 
 	  return $http.post('/questions.json', question).success(function(data){
 
-	    o.questionnaires.push(data);
+	    o.questions.push(data);
 	  });
 	};
 
 
-	 o.update = function(questionnaire) {
+	 o.update = function(question) {
+
 	  return $http.put('/questions/' + question.id + '.json', question).success(function(data){
-	    o.getAll();
 	  });
 	};
 
 
-	 o.destroy = function(questionnaire) {
+	 o.destroy = function(question) {
 
-	  return $http.delete('/questions/' + question.id + '.json', questione).success(function(data){
+	  return $http.delete('/questions/' + question.id + '.json', question).success(function(data){
         o.getAll();
 	  });
 	};
+
+
+	o.get = function(id) {
+	  return $http.get('/questions/' + id + '.json').then(function(res){
+	    return res.data;
+	  });
+	};
+
+	o.addResponse = function(id, response) {
+  		return $http.post('/questions/' + id + '/responses.json', response);
+	};
+
+	o.getAllResponses = function(id){
+		return $http.get('/questions/' + id + '/responses.json');
+	}
+
+
+
+    o.destroyResponse = function(question_id, id){
+    	return $http.delete('/questions/' + question_id + '/responses/' + id + '.json');
+
+    }
+
+     o.updateResponse = function(question_id, id, response){
+    	return $http.put('/questions/' + question_id + '/responses/' + id + '.json', response);
+
+    }
+
 
 
 

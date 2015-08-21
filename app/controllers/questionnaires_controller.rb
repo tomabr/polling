@@ -19,12 +19,15 @@ class QuestionnairesController < ApplicationController
   	questionnaire = Questionnaire.find(params[:id])
   	questionnaire.update!(questionnaire_params)
 
+  	respond_with questionnaire
+
   end
 
   def destroy
   	questionnaire = Questionnaire.find(params[:id])
   	questionnaire.destroy
 
+  	respond_with 
   end
 
 

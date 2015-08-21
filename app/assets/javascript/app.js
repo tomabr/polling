@@ -65,10 +65,15 @@ myapp.config(['$stateProvider','$urlRouterProvider',
       templateUrl: 'home/_home.html',
       controller: 'HomeCtrl',
       resolve: {
-        postPromise: ['questionnaires', function(questionnaires){
-          return questionnaires.getAll();
-        }]
+        postPromise: ['questionnaires', 'questions', function(questionnaires, questions){
+          return questionnaires.getAll() + questions.getAll();
+        }],
+
+      
       }
+
+
+
     });
 
 
@@ -84,7 +89,13 @@ myapp.config(['$stateProvider','$urlRouterProvider',
     .state('question', {
       url: '/question/{id}',
       templateUrl: 'question/_question.html',
-      controller: 'QuestionCtrl'
+      controller: 'QuestionCtrl',
+      resolve: {
+          question: ['$stateParams', 'questions', function($stateParams, questions) {
+            return questions.get($stateParams.id);
+          }]
+        }
+
     });
 
 

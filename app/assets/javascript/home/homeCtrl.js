@@ -30,23 +30,31 @@ myapp.controller('HomeCtrl', ['$scope', 'questionnaires', 'questions', function(
 
    $scope.addQuestion = function(){
     if(!$scope.formQuestion.title.$error.pattern && $scope.title != ''){
-      	$scope.questions.push({title: $scope.title, url: $scope.url});
-      	$scope.title='';
-      	$scope.url='';
+
+      	//$scope.questions.push({title: $scope.title});
+      	//$scope.title='';
+
+         questions.create({
+          title: $scope.title,
+        });
+         $scope.title='';
+    
     }else{
       $scope.formQuestion.title.$error.pattern = true;
     }
   };
 
-  $scope.deleteQuestion = function(index){
-    $scope.questions.splice( index, 1 );
+  $scope.deleteQuestion = function(question){
+    //$scope.questions.splice( index, 1 );
+     questions.destroy(question);
+
   }
 
   $scope.deleteQuestionnaire = function(questionnaire){
     
    // $scope.questionnaires.splice( index, 1 );
    questionnaires.destroy(questionnaire);
- 
+
   }
 
 
@@ -61,7 +69,12 @@ myapp.controller('HomeCtrl', ['$scope', 'questionnaires', 'questions', function(
   $scope.endActiveEditQuestion = function(index){
      
 
-     if(!$scope.formQuestion[index].title.$error.pattern && $scope.formQuestion[index].title.$viewValue.length > 0){
+     if(!$scope.formQuestion[index].title.$error.pattern && $scope.formQuestion[index].title.$modelValue.length > 0){
+      questions.update({
+        id: $scope.formQuestion[index].id.$modelValue, 
+        name: $scope.formQuestion[index].title.$modelValue
+      });
+
       $scope.edit[index] = false;
      }else{
       $scope.formQuestion[index].title.$error.pattern=true;

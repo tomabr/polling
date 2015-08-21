@@ -1,4 +1,4 @@
-myapp.controller('QustionnaireCtrl', ['$scope', '$stateParams', 'questionnaires', 'questions', 'qustionnaries_questions' ,
+myapp.controller('QustionnaireCtrl', ['scope',  '$stateParams', 'questionnaires', 'questions', 'qustionnaries_questions' ,
   function($scope, $stateParams, questionnaires, questions, qustionnaries_questions){
 
 	$scope.questionnaire = questionnaires.questionnaires[$stateParams.id];
@@ -19,7 +19,7 @@ myapp.controller('QustionnaireCtrl', ['$scope', '$stateParams', 'questionnaires'
   $scope.sortableOptions = {
     update: function(e, ui) {
       var logEntry = $scope.multiple.selectedQuestions.map(function(i){
-      	console.log(i)
+      	
         return i.title;
       }).join(', ');
       $scope.sortingLog.push('Update: ' + logEntry);

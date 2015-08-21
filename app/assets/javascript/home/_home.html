@@ -54,7 +54,9 @@
 
                     <div ng-show="editQuestionnaire[index]">
                       <form name="formQuestionnarie[index]" ng-submit="endActiveEditQuestionnaire(index)">
-                        <input  name="name" type="text" ng-pattern="/^\w{3}/" style="width: 85%;" ng-model="questionnaire.name"</>
+                        <input  name="name" type="text" ng-pattern="/^\w{3}/" style="width: 85%;" ng-model="questionnaire.name"/>
+                        <input type="hidden" name="id" ng-model="questionnaire.id"/>
+                      
                         <button class="btn btn-primary" type="submit">End Edit</button>
                       </form>
 
@@ -72,7 +74,7 @@
 
 
                   
-                  <td><button class="btn" ng-click="deleteQuestionnaire(index)">Delete</button></td>
+                  <td><button class="btn" ng-click="deleteQuestionnaire(questionnaire)">Delete</button></td>
                   </td>
         			 
         			</tr>

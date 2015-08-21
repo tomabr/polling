@@ -1,11 +1,38 @@
 myapp.factory('questions', [function(){
 	var o = {
-		questions:  [
-	  	{title: "Kiedy jedziesz na wakacje za granicą, to wybierasz:", url: '', response: [{'name' : 'testowa odpowiedz'}]},
-	  	{title: "Testowy 2 Kiedy jedziesz na wakacje za granicą, to wybierasz", url: '', response: []},
-	  	{title: "Testowy 3 Kiedy jedziesz na wakacje za granicą, to wybierasz", url: '', response: []},
-	  	{title: "Testowy 4 Kiedy jedziesz na wakacje za granicą, to wybierasz", url: '', response: []},
-	  ]
+		questions:  []
 	}
+
+	o.getAll = function() {
+	    return $http.get('/questions.json').success(function(data){
+	      angular.copy(data, o.questions);
+	    });
+  	};
+
+  	o.create = function(questionnaire) {
+
+	  return $http.post('/questions.json', question).success(function(data){
+
+	    o.questionnaires.push(data);
+	  });
+	};
+
+
+	 o.update = function(questionnaire) {
+	  return $http.put('/questions/' + question.id + '.json', question).success(function(data){
+	    o.getAll();
+	  });
+	};
+
+
+	 o.destroy = function(questionnaire) {
+
+	  return $http.delete('/questions/' + question.id + '.json', questione).success(function(data){
+        o.getAll();
+	  });
+	};
+
+
+
 	return o;
 }]);

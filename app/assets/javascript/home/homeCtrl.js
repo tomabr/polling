@@ -10,8 +10,14 @@ myapp.controller('HomeCtrl', ['$scope', 'questionnaires', 'questions', function(
     if(!$scope.formQuestionnarie.name.$error.pattern && $scope.name != ''){
      
     
-    	$scope.questionnaires.push({name: $scope.name});
-    	$scope.name='';
+    	//$scope.questionnaires.push({name: $scope.name});
+    	//$scope.name='';
+
+      questionnaires.create({
+        name: $scope.name,
+      });
+      $scope.name='';
+
 
     }else{
       $scope.formQuestionnarie.name.$error.pattern = true;
@@ -36,9 +42,11 @@ myapp.controller('HomeCtrl', ['$scope', 'questionnaires', 'questions', function(
     $scope.questions.splice( index, 1 );
   }
 
-  $scope.deleteQuestionnaire = function(index){
+  $scope.deleteQuestionnaire = function(questionnaire){
     
-    $scope.questionnaires.splice( index, 1 );
+   // $scope.questionnaires.splice( index, 1 );
+   questionnaires.destroy(questionnaire);
+ 
   }
 
 
@@ -66,8 +74,15 @@ myapp.controller('HomeCtrl', ['$scope', 'questionnaires', 'questions', function(
   }
 
   $scope.endActiveEditQuestionnaire = function(index){
-    if(!$scope.formQuestionnarie[index].name.$error.pattern && $scope.formQuestionnarie[index].name.length>0){
+    if(!$scope.formQuestionnarie[index].name.$error.pattern && $scope.formQuestionnarie[index].name.$modelValue.length>0){
+        
+      questionnaires.update({
+        id: $scope.formQuestionnarie[index].id.$modelValue, 
+        name: $scope.formQuestionnarie[index].name.$modelValue
+      });
+
       $scope.editQuestionnaire[index] = false;
+   
     }else{
       $scope.formQuestionnarie[index].name.$error.pattern=true;
     }
